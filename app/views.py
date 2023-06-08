@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 import openai
+import os
+from dotenv import load_dotenv
 
 from .models import Message
 from .serializers import MessageSerializer
@@ -25,7 +27,7 @@ class MessageCreateView(generics.CreateAPIView):
             temperature=0.7,
             n=1,
             stop=None,
-            api_key='OPENAI_API_KEY'
+            api_key=os.getenv('OPENAI_API_KEY'),
         )
 
         if answer.choices:
